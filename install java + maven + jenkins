@@ -1,8 +1,6 @@
 Maven home: /opt/maven
 Java version: 11.0.28, vendor: Amazon.com Inc., runtime: /usr/lib/jvm/java-11-amazon-corretto.x86_64
 
-
-
 Take Amazon-linux-2023 latest version and install java + maven + jenkins
 ========================================================================
 1. Upgrade your system (optional - If available)
@@ -13,12 +11,15 @@ dnf upgrade --releasever=2023.3.20240205
 sudo dnf install java-11-amazon-corretto-devel
 
 3. Install Jenkins using the below commands
-    1  sudo wget -O /etc/yum.repos.d/jenkins.repo     https://pkg.jenkins.io/redhat-stable/jenkins.repo
-    2  sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
-	3  sudo yum install jenkins
-    4  sudo systemctl daemon-reload
-	5  service jenkins start
-	6  systemctl enable jenkins
+	1. sudo wget -O /etc/yum.repos.d/jenkins.repo \
+    https://pkg.jenkins.io/redhat-stable/jenkins.repo
+	2. sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+	3. sudo dnf upgrade
+# Add required dependencies for the jenkins package
+	4. sudo dnf install java-21-amazon-corretto-devel -y
+	5. sudo dnf install jenkins
+	6. sudo systemctl daemon-reload
+	7. systemctl enable jenkins
 
 4. Install maven for build
     1. cd /opt
