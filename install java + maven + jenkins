@@ -1,0 +1,55 @@
+Maven home: /opt/maven
+Java version: 11.0.28, vendor: Amazon.com Inc., runtime: /usr/lib/jvm/java-11-amazon-corretto.x86_64
+
+
+
+Take Amazon-linux-2023 latest version and install java + maven + jenkins
+========================================================================
+1. Upgrade your system (optional - If available)
+yum update -y 
+dnf upgrade --releasever=2023.3.20240205
+
+2. Install java -- > Check java -version
+sudo dnf install java-11-amazon-corretto-devel
+
+3. Install Jenkins using the below commands
+    1  sudo wget -O /etc/yum.repos.d/jenkins.repo     https://pkg.jenkins.io/redhat-stable/jenkins.repo
+    2  sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+	3  sudo yum install jenkins
+    4  sudo systemctl daemon-reload
+	5  service jenkins start
+	6  systemctl enable jenkins
+
+4. Install maven for build
+    1. cd /opt
+	2. wget https://dlcdn.apache.org/maven/maven-3/3.9.11/binaries/apache-maven-3.9.11-bin.tar.gz
+	3. tar -xvzf apache-maven-3.9.11-bin.tar.gz
+	4. rm -rf apache-maven-3.9.11-bin.tar.gz
+	5. mv apache-maven-3.9.11 maven
+	
+5. Configure path variable " echo $PATH" to add java_home  and maven_home
+
+==> cd ==> ls -la ==> nano .bash_profile
+=======================================================================
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+fi
+
+M2_HOME=/opt/maven
+M2=/opt/maven/bin
+JAVA_HOME=/usr/lib/jvm/java-11-amazon-corretto.x86_64
+
+# User specific environment and startup programs
+
+PATH=$PATH:$HOME/bin:$JAVA_HOME:$M2_HOME:$M2
+
+export PATH
+
+# User specific environment and startup programs
+
+=======================================================================
+==> source .bash_profile
+==> echo $PATH
